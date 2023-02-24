@@ -1,49 +1,56 @@
-import React, { createContext, useState, useEffect } from "react";
-import PlanetsContext from "./PlanetsContext";
-
-
+import React, {
+  createContext,
+  Dispatch,
+  useState,
+  useEffect,
+  SetStateAction,
+} from "react";
 
 interface DefaultPlanets {
-  data: Object,
-  planets: Array<string>,
-  currPlanet: Object
+  data: Object;
+  setData: Dispatch<SetStateAction<object | undefined>>;
+  planets: Object;
+  setPlanets: Dispatch<SetStateAction<object | undefined>>;
+  currPlanet: string;
+  setCurrPlanet: string;
 }
-const PlanetsData = createContext<DefaultPlanets>({
+const PlanetsContext = createContext<DefaultPlanets>({
   data: {},
-  planets: [],
-  currPlanet: {}
+  setData: () => {},
+  planets: {},
+  setPlanets: () => {},
+  currPlanet: "",
+  setCurrPlanet: "Mercury",
 });
 
-
+// colors of planets
 
 // const storage = localStorage.getItem("items")
 //   ? JSON.parse(localStorage.getItem("items"))
 //   : [];
 
-const PlanetProvider = ({ children }) => {
-const [data, setData] = useState({})
-const [planets, setPlanets] = useState("Mercury")
-const [currPlanet, setCurrPlanet] = useState({})
+const PlanetState = ({ children }: any) => {
+  const [data, setData] = useState({});
+  const [planets, setPlanets] = useState({});
+  const [currPlanet, setCurrPlanet] = useState("Mercury");
 
-// useEffect(() => {
-//   fetch("../data.json")
-//     .then((response) => response.json())
-//     .then((json) => {
-//       setData(json);
-//       setPlanets(json.map(planet => planet.name));
-//       setCurrPlanet(json[0])
-//     });
-// }, []);
+  // useEffect(() => {
+  //   fetch("../data.json")
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       setData(json);
+  //       setPlanets(json.map(planet => planet.name));
+  //       setCurrPlanet(json[0])
+  //     });
+  // }, []);
 
   return (
     <PlanetsContext.Provider
-      value={
-        {data, setData, currPlanet, setCurrPlanet, planets, setPlanets}
-      }
+      value={{ data, setData, currPlanet, setCurrPlanet, planets, setPlanets }}
     >
       {children}
     </PlanetsContext.Provider>
   );
 };
 
-export default PlanetsContext;
+export default PlanetState;
