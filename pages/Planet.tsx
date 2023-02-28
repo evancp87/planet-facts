@@ -1,14 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PlanetData from "../Components/PlanetData";
 import PlanetImgs from "../Components/PlanetImgs";
 import FooterData from "../Components/FooterData";
 import Sidebar from "../Components/Sidebar";
+import PlanetsContext from "../services/Planets/PlanetsContext";
 type Props = {};
+
+const {
+  currPlanet,
+  setCurrPlanet,
+  data,
+  setData,
+  planets,
+  setPlanets,
+  setPlanetData,
+}: any = useContext(PlanetsContext);
 
 function Planet({}: Props) {
   // onLoad loads default state- mercury as the default planet & the overview as the default data
 
   // data should live here and be passed to planetImgs, PlanetData and FooterData components as props
+  useEffect(() => {
+    setPlanetData();
+  }, [currPlanet]);
+
   return (
     <>
       <main className="grid">

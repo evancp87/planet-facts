@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import source from "../public/assets/icon-source.svg";
 import Image from "next/image";
 type Props = {};

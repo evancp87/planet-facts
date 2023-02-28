@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
 import Image from "next/image";
