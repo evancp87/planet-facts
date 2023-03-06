@@ -12,10 +12,11 @@ interface DefaultPlanets {
   data: object;
   setData: Dispatch<SetStateAction<object>>;
   planets: object;
-  setPlanets: Dispatch<SetStateAction<object>>;
+  setPlanets: Dispatch<SetStateAction<object[]>>;
   currPlanet: string;
   setCurrPlanet: Dispatch<SetStateAction<string>>;
-  // setPlanet
+  colors: { [key: string]: string }; // <-- add this
+  setPlanetData: () => void;
 }
 const PlanetsContext = createContext<DefaultPlanets>({
   data: {},
@@ -24,27 +25,29 @@ const PlanetsContext = createContext<DefaultPlanets>({
   setPlanets: () => {},
   currPlanet: "Mercury",
   setCurrPlanet: () => {},
+  colors: {},
+  setPlanetData: () => {},
 });
 
 // colors of planets
 
 const PlanetState = ({ children }: any) => {
   const [data, setData] = useState({});
-  const [planets, setPlanets] = useState({});
+  const [planets, setPlanets] = useState<object[]>([]);
   const [currPlanet, setCurrPlanet] = useState("Mercury");
 
-  // const colors = {
-  //   Mercury: "#DEF4FC",
-  //   Venus: "#F7CC7F",
-  //   Earth: "#545BFE",
-  //   Mars: "#FF6A45",
-  //   Jupiter: "#ECAD7A",
-  //   Uranus: "#65F0D5",
-  //   Saturn: "#FCCB6B",
-  //   Neptune: "#497EFA",
-  // };
+  const colors = {
+    Mercury: "#DEF4FC",
+    Venus: "#F7CC7F",
+    Earth: "#545BFE",
+    Mars: "#FF6A45",
+    Jupiter: "#ECAD7A",
+    Uranus: "#65F0D5",
+    Saturn: "#FCCB6B",
+    Neptune: "#497EFA",
+  };
 
-  function setPlanetData() {
+  function setPlanetData(): void {
     fetch("../../data.json")
       .then((response) => response.json())
       .then((planets) =>
@@ -101,7 +104,7 @@ const PlanetState = ({ children }: any) => {
         setCurrPlanet,
         planets,
         setPlanets,
-        // colors,
+        colors,
         setPlanetData,
       }}
     >
